@@ -1,17 +1,19 @@
 #include <iostream>
 
+void ShowElement(const int* addr_0, unsigned int size) {
+	for (int i = 0; i < size; i++) {
+		std::cout << addr_0[i] << "\t";
+//		std::cout << *(addr_0 + i) << "\t";
+//		std::cout << *(addr_0++) << "\t";
+	}
+	std::cout << std::endl;
 
-unsigned int sum(char a, char b) {
-	return a + b;
 }
+
 
 int main(int argc, char** argv) {
 
-	unsigned char a = 140;
-	unsigned char b = 150;
-	unsigned char c = a + b;
-
-	std::cout << (int)a << " + " << (int)b << " = " << (int)c << std::endl;
-	std::cout << std::hex << sum(a,b) << std::endl;
+	int ar[100];
+	ShowElement(&ar[0], 100);
 	return 0;
 }
