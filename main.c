@@ -1,6 +1,9 @@
 #include <iostream>
 
 
+int sum(char a, char b) {
+	return a + b;
+}
 
 int main(int argc, char** argv) {
 
@@ -9,5 +12,6 @@ int main(int argc, char** argv) {
 	char c = a + b;
 
 	std::cout << (int)a << " + " << (int)b << " = " << (int)c << std::endl;
+	std::cout << sum(a,b) << std::endl;
 	return 0;
 }
