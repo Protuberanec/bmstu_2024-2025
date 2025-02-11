@@ -1,11 +1,19 @@
 #include <iostream>
 
+
+
 int main(int argc, char** argv) {
-	
-	for (int i = 0; i < argc; i++) {
-		std::cout << argv[i] << "\n";
-	}
+	int temp = 10;
+	int *pTemp = &temp;
 
-	std::cout << std::endl;
+	(*pTemp)++;
 
+	std::cout << "temp = " << temp << std::endl;
+
+	temp++;
+	std::cout << "*pTemp, addr =  " << pTemp << " val = " << *pTemp << std::endl;
+
+
+
+	return 0;
 }
