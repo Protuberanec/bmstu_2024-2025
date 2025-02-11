@@ -3,17 +3,11 @@
 
 
 int main(int argc, char** argv) {
-	int temp = 10;
-	int *pTemp = &temp;
 
-	(*pTemp)++;
+	char a = 140;
+	char b = 150;
+	char c = a + b;
 
-	std::cout << "temp = " << temp << std::endl;
-
-	temp++;
-	std::cout << "*pTemp, addr =  " << pTemp << " val = " << *pTemp << std::endl;
-
-
-
+	std::cout << (int)a << " + " << (int)b << " = " << (int)c << std::endl;
 	return 0;
 }
