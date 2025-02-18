@@ -12,17 +12,17 @@ void ShowElement(const int* addr_0, unsigned int size) {
 	std::cout << std::endl;
 }
 
-void fillArray(int *ar, size_t size, int val) {
-	for (int i = 0; i < size; ar[i++] = val) {
-	}
-}
 
 
 int main(int argc, char** argv) {
 
-	int ar[100];
-	fillArray(ar, 100, 0);
-	fillArray(&ar[50], 50, 5);
-	ShowElement(&ar[0], 100);
+	int count = 1;
+
+	for (int i = 0; i < 32; i++) {
+
+		std::cout << std::hex << (count << i) << "\n";
+	}
+	std::cout << std::endl;
+
 	return 0;
 }
