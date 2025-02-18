@@ -11,7 +11,7 @@ void PrintArray(const int* ar, size_t size) {
 
 }
 
-int GetCountOne(int ar) {
+int GetCountOne(unsigned int ar) {
 	int count = 0;
 	for (int i = 0; i < 32; i++) {
 		count += (ar >> i) & 0x01;

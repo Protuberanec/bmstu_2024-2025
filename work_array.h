@@ -4,4 +4,4 @@
 
 void PrintArray(const int*, size_t);
 
-int GetCountOne(int ar);
+int GetCountOne(unsigned int ar);

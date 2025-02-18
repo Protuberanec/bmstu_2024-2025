@@ -4,7 +4,14 @@
 
 void test_GetCountOne() {
 	if (GetCountOne(0xFF0F) != 12) {
-		std::cout << "errorrrrrrr garden...." << std::endl;
+		std::cout << "errorrrrrrr garden.... 0" << std::endl;
+	}
+
+	if (GetCountOne(256) == 1) {
+		std::cout << "errorrrrrrr garden.... 1" << std::endl;
+	}
+	if (GetCountOne(0xFFFFFFFF) == 32) {
+		std::cout << "errorrrrrrr garden.... 2" << std::endl;
 	}
 }
 
@@ -27,13 +34,7 @@ void ShowElement(const int* addr_0, unsigned int size) {
 
 int main(int argc, char** argv) {
 
-	unsigned int count = 0x80000000;
-
-	for (int i = 0; i < 32; i++) {
-
-		std::cout << std::hex << (count >> i) << "\n";
-	}
-	std::cout << std::endl;
+	test_GetCountOne();
 
 	return 0;
 }
