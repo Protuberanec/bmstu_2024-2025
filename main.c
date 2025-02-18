@@ -2,15 +2,18 @@
 
 #include "work_array.h"
 
+/*
+ *	так тестировать можно только до 15.03.2025 года.....
+ */
 void test_GetCountOne() {
 	if (GetCountOne(0xFF0F) != 12) {
 		std::cout << "errorrrrrrr garden.... 0" << std::endl;
 	}
 
-	if (GetCountOne(256) == 1) {
+	if (GetCountOne(256) != 1) {
 		std::cout << "errorrrrrrr garden.... 1" << std::endl;
 	}
-	if (GetCountOne(0xFFFFFFFF) == 32) {
+	if (GetCountOne(0xFFFFFFFF) != 32) {
 		std::cout << "errorrrrrrr garden.... 2" << std::endl;
 	}
 }
