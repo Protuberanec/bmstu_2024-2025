@@ -14,8 +14,9 @@ void PrintArray(const int* ar, size_t size) {
 int GetCountOne(int ar) {
 	int count = 0;
 	for (int i = 0; i < 32; i++) {
-		count += (ar >> 1) & 0x01;
+		count += (ar >> i) & 0x01;
 	}
+	return count;
 }
 
 int GetMaxBitNumber(const int* ar, size_t size_ar) {

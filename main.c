@@ -1,5 +1,16 @@
 #include <iostream>
 
+#include "work_array.h"
+
+void test_GetCountOne() {
+	if (GetCountOne(0xFF0F) != 12) {
+		std::cout << "errorrrrrrr garden...." << std::endl;
+	}
+}
+
+
+
+
 void ShowElement(const int* addr_0, unsigned int size) {
 	for (int i = 0; i < size; i++) {
 //		std::cout << *(addr_0 + i) << "\t";
@@ -16,11 +27,11 @@ void ShowElement(const int* addr_0, unsigned int size) {
 
 int main(int argc, char** argv) {
 
-	int count = 1;
+	unsigned int count = 0x80000000;
 
 	for (int i = 0; i < 32; i++) {
 
-		std::cout << std::hex << (count << i) << "\n";
+		std::cout << std::hex << (count >> i) << "\n";
 	}
 	std::cout << std::endl;
 
