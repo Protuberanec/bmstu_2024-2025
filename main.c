@@ -18,6 +18,17 @@ void test_GetCountOne() {
 	}
 }
 
+void test_GetMaxBitNumber() {
+	{
+		int ar[10] = {0x00,0x10,0x20,0x40,0xFF,0x7F,0xF00F, 0xFF001, 0x888, 0x010101};
+		int ind_max = GetMaxBitNumber(&ar[0], 10);
+		if (ind_max != 7) {
+			std::cout << "again garden...." << std::endl;
+		}
+	}
+
+
+}
 
 
 
@@ -38,6 +49,7 @@ void ShowElement(const int* addr_0, unsigned int size) {
 int main(int argc, char** argv) {
 
 	test_GetCountOne();
+	test_GetMaxBitNumber();
 
 	return 0;
 }
