@@ -1,5 +1,5 @@
 
 *.swp
 a.out
-test
 *.o
+*.h.gch
