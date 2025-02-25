@@ -1,29 +1,34 @@
 #include <iostream>
-#include "dz1.h"
 
-void ShowElement(const int* addr_0, unsigned int size) {
-	for (int i = 0; i < size; i++) {
-//		std::cout << *(addr_0 + i) << "\t";
-//		std::cout << *(addr_0++) << "\t";
-		if (i % 10 == 0 && i != 0) {
-			std::cout << "\n";
-		}
-		std::cout << addr_0[i] << "\t";
-	}
-	std::cout << std::endl;
-}
+#include "file_oper.h"
 
-void fillArray(int *ar, size_t size, int val) {
-	for (int i = 0; i < size; ar[i++] = val) {
-	}
-}
 
 
 int main(int argc, char** argv) {
-	getBitsInArray((int*)argv[0], 10);
-	int ar[100];
-	fillArray(ar, 100, 0);
-	fillArray(&ar[50], 50, 5);
-	ShowElement(&ar[0], 100);
+	openFile_w("test");
+
+	writeFile("hello, 我想回家");
+
+	closeFile();
+	
+	openFile_r("test");
+	char* myData = nullptr;
+	int countData = readFile(&myData);
+	std::cout << "size data = " << countData << std::endl;
+	std::cout << "\t\t\t" << myData << std::endl;
+
+	auto showEl = [](const char* data) {
+		for (int i = 0; data[i] != '\0'; i++) {
+			std::cout << std::hex << (unsigned int)((unsigned char)data[i]) << std::dec << " ";
+		}
+		std::cout << std::endl;
+	};
+
+	showEl(myData);
+
+	delete [] myData;
+
+	closeFile();
+
 	return 0;
 }
