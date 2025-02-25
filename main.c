@@ -1,4 +1,5 @@
 #include <iostream>
+#include "dz1.h"
 
 void ShowElement(const int* addr_0, unsigned int size) {
 	for (int i = 0; i < size; i++) {
@@ -19,7 +20,7 @@ void fillArray(int *ar, size_t size, int val) {
 
 
 int main(int argc, char** argv) {
-
+	getBitsInArray((int*)argv[0], 10);
 	int ar[100];
 	fillArray(ar, 100, 0);
 	fillArray(&ar[50], 50, 5);
