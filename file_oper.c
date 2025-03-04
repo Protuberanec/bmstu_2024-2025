@@ -43,3 +43,17 @@ void closeFile() {
 	fclose(f);
 	f = nullptr;
 }
+
+void writePoints(double x, double y) {
+	if (f == nullptr) {
+		std::cerr << "file is not opened..." << std::endl;
+		return;
+	}
+	int count = fprintf(f, "%2.2f\t%4.4f\n", x, y);
+
+	return;
+
+}
+
+
+

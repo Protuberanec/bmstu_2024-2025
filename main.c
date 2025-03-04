@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <time.h>
 #include "file_oper.h"
 
 
@@ -33,6 +33,23 @@ int main(int argc, char** argv) {
 	writeFile("test1");
 	openFile_r("test111");
 	readFile(&myData);
+	closeFile();
+
+
+
+	openFile_w("for_graph");
+
+	srand(time(nullptr));
+
+	for (int i = 0; i < 10; i++) {
+		std::cout << random() % 100 << "\t";
+		//writePoints(i, random() % 100);
+	}
+
+	std::cout << std::endl;
+
+	closeFile();
+
 	
 	return 0;
 }
