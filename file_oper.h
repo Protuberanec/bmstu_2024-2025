@@ -11,3 +11,5 @@ bool openFile_r(const char* file_name);
 void closeFile();
 int writeFile(const char* data);
 int readFile(char** data);
+
+

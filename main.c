@@ -30,5 +30,9 @@ int main(int argc, char** argv) {
 
 	closeFile();
 
+	writeFile("test1");
+	openFile_r("test111");
+	readFile(&myData);
+	
 	return 0;
 }
