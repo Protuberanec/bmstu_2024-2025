@@ -1,5 +1,5 @@
-all : main.o dz1.o file_oper.o filo.o
-	g++ main.o dz1.o file_oper.o filo.o -g
+all : main.o dz1.o file_oper.o filo.o node.o
+	g++ main.o dz1.o file_oper.o filo.o node.o -g
 
 main.o : main.c
 	g++ main.c -c -g
@@ -12,6 +12,9 @@ file_oper.o : file_oper.c
 
 filo.o : filo.c
 	g++ filo.c -c -g
+
+node.o : node.c node.h
+	g++ node.c node.h -c -g
 
 clean :
 	rm -rf *.o a.out
