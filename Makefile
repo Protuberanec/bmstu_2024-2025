@@ -18,3 +18,10 @@ node.o : node.c node.h
 
 clean :
 	rm -rf *.o a.out
+
+work_array.o : work_array.c
+	g++ work_array.c -c -g
+
+
+clean :
+	rm -rf *.o *.out

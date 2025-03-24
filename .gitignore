@@ -1,5 +1,5 @@
-
-*.swp
+.*.swp
 a.out
 *.o
 *.h.gch
+test
