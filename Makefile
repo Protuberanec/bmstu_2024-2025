@@ -1,5 +1,12 @@
-all : main.o dz1.o file_oper.o filo.o node.o
-	g++ main.o dz1.o file_oper.o filo.o node.o -g
+all : main.o test.o dz1.o file_oper.o filo.o node.o test_node.o
+	g++ main.o test.o dz1.o file_oper.o filo.o node.o test_node.o -g
+
+
+test_node.o : test_node.c test_node.h
+	g++ -g -c test_node.c test_node.h
+
+test.o : test.c test.h
+	g++ -g -c test.c test.h
 
 main.o : main.c
 	g++ main.c -c -g
