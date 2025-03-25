@@ -1,0 +1,12 @@
+main.o : main.cpp
+	g++ main.cpp -c
+
+node.o : node.cpp
+	g++ node.cpp -c
+
+all: main.o node.o
+	g++ node.o main.o
+
+
+clean :
+	rm -rf *.o

@@ -25,5 +25,3 @@ work_array.o : work_array.c
 test_node.o : test_node.cpp
 	g++ -c test_node.cpp
 
-clean :
-	rm -rf *.o a.out

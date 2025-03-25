@@ -3,3 +3,6 @@ a.out
 *.o
 *.h.gch
 test
+build/
+CMakeLists.txt
+gen_make.sh
