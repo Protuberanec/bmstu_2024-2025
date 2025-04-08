@@ -46,8 +46,11 @@ int main(int argc, char** argv) {
 	my_ll->delete_element(0);
 	my_ll->printLL();
 
-	my_ll->delete_element(my_ll->totalCountNodes());
+	std::cout << my_ll->totalCountNodes() << std::endl;
+	my_ll->delete_element(my_ll->totalCountNodes() - 1);
 	my_ll->printLL();
+
+	my_ll->delete_element(1200);
 
 	delete my_ll;
 

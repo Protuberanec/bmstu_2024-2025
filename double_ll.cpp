@@ -18,8 +18,8 @@ node::~node() {
 
 	if (next != nullptr) {
 		delete next;
-		count_nodes--;
 	}
+	count_nodes--;
 }
 //--------------------------------------------------
 LL::LL() {
@@ -93,8 +93,10 @@ Data LL::getFromBegin(bool& ok) {
 
 	ok = true;
 	Data temp_data = *Head->data;
-	Head = Head->next;
+	Head = Head->next;	/// move Head to next element
 	node* temp = Head->prev;
+
+	Head->prev = nullptr;	///it's firts element
 	temp->next = nullptr;
 	delete temp;
 
@@ -125,22 +127,26 @@ void LL::delete_element(int start, int count) {
 	if (current < start) {
 		return;
 	}
+	if (temp_node == nullptr) {
+		return;
+	}
 #ifdef DEBUG
 	std::cout << "start change addr" << std::endl;
 #endif
-	if (temp_node->next != nullptr) {
-		temp_node->next->prev = temp_node->prev;
+
+	if (temp_node->prev == nullptr) {
+			//temp_node is HEAD 
+		Head = Head->next;
+		Head->prev = nullptr;
 	}
-	else {
+	else if (temp_node->next == nullptr) {
+		//temp_node is Tail
 		Tail = Tail->prev;
 		Tail->next = nullptr;
 	}
-	if (temp_node->prev != nullptr) {
+	else if (temp_node->prev != nullptr) {
+		temp_node->next->prev = temp_node->prev;
 		temp_node->prev->next = temp_node->next;
-	}
-	else {
-		Head = temp_node->next;
-		Head->prev = nullptr;
 	}
 
 	temp_node->prev = nullptr;
@@ -151,7 +157,28 @@ void LL::delete_element(int start, int count) {
 	delete temp_node;
 }
 
-void LL::printLL(int start, int count) {
+void LL::flush() {
+	if (Head == nullptr) {
+		return;
+	}
+	delete Head;
+	Head = nullptr;
+}
+
+int LL::search(const Data& toSearch) {
+	node* temp = Head;
+	int count = 0;
+	while (temp != nullptr) {
+		
+		if (temp->data == toSearch) {
+			return count;
+		}
+		count++;
+	}	
+	return -1;
+}
+
+void LL::printLL(int start, int count) const {
 	node* temp = Head;
 	std::cout << "LL : ";
 	while(temp != nullptr) {

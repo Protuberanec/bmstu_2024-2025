@@ -4,7 +4,24 @@
 #include <iostream>
 
 
-struct Data {};
+struct Data {
+	int a;
+	char* temp;
+
+	Data() {
+		a = 0;
+		temp = nullptr;
+	}
+	~Data() {
+		if (temp != nullptr) {
+			delete [] temp;
+		}
+	}
+
+	bool operator==(const Data& data) {
+		return a == data.a;
+	}
+};
 
 struct node {
 	static int count_nodes;
@@ -37,7 +54,7 @@ class LL {
 		Data getFromBegin(bool& ok);
 		void delete_element(int start, int count = 1);
 		void flush();
-		bool search(const Data& toSearch);
+		int search(const Data& toSearch) const;
 		void printLL(int start = 0, int count = -1);
 		void saveToFile(const char* file_name);					   
 		int totalCountNodes() const;
