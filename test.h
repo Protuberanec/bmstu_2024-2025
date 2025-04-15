@@ -35,6 +35,17 @@ void my_assert_equal(const T& expr, const T& expr_true, const std::string& expr_
 }
 #define ASSERT_EQUAL(expr, expr_true)	my_assert_equal(expr, expr_true, #expr, #expr_true)
 
+template<class T>
+void assert_equal_array(const T* ar1, const T* ar2, int size) {
+	for (int i = 0; i < size; i++) {
+		if (ar1[i] != ar2[i]) {
+			std::cout << "TEST ERROR" << std::endl;
+			return;
+		}
+	}
 
+	std::cout << "TEST OK" << std::endl;
+}
+#define ASSERT_EQUAL_ARRAY(ar1, ar2, size)	assert_equal_array(ar1, ar2, size)
 
 #endif

@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 
+#include "test.h"
+
 
 void foo(const std::vector<int>& a) {
 	for (int i = 0; i < a.capacity(); i++) {
@@ -50,12 +52,75 @@ void sort(int* ar, int size, bool (*comp)(int a, int b)) {
 
 void test_sort(void (*typeSort)(int* ar, int size, bool (*comp)(int,int)), const std::string& name_sort) {
 	std::cout << name_sort << std::endl;
+	{
+		int size = 10;
+		int* ar = new int [size] {2,1,5,3,8,4,4,5,0,19};
+		int* true_ar = new int [size] {0,1,2,3,4,4,5,5,8,19};
+
+		typeSort(ar, size, [](int a, int b){return a < b;});
+
+		ASSERT_EQUAL_ARRAY(ar, true_ar, size);
+
+		
+		delete [] true_ar;
+		delete [] ar;
+	}
+
+	{
+		int size = 10;
+		int* ar = new int [size] {2,1,5,3,8,4,4,5,0,19};
+		int* true_ar = new int [size] {0,1,2,3,4,4,5,5,8,19};
+		auto reverse = [](int* ar, int size) {
+			int left = 0;
+			int right = size - 1;
+			while(left <= right) {
+				std::swap(ar[left++], ar[right--]);
+			}
+		};
+		reverse(true_ar, size);
+
+		typeSort(ar, size, [](int a, int b){return a > b;});
+
+		ASSERT_EQUAL_ARRAY(ar, true_ar, size);
+
+		
+		delete [] true_ar;
+		delete [] ar;
+	}
+
 
 }
 
 
 int main(int argc, char** argv) {
 	test_sort(sort, "stupid sort");
+
+		int size = 10;
+		int* ar = new int [size] {2,1,5,3,8,4,4,5,0,19};
+
+		auto show = [&ar, &size]() {
+			std::cout << "---" << std::endl;
+			for (int i = 0; i < size; i++) {
+				std::cout << ar[i] << "   ";
+			}
+			std::cout << std::endl;
+		};
+
+		show();
+		sort(ar, size, [](int a, int b) {return (((b & 0x01) == 0x01)  && ((a & 0x01) == 0x00)); });
+		show();
+
+		sort(ar, size, [](int a, int b) {return (((b & 0x01) == 0x01)  && ((a & 0x01) == 0x00)); });
+		show();
+		sort(ar, size, [](int a, int b) {return (((b & 0x01) == 0x01)  && ((a & 0x01) == 0x00)); });
+		show();
+		sort(ar, size, [](int a, int b) {return (((b & 0x01) == 0x01)  && ((a & 0x01) == 0x00)); });
+		show();
+		sort(ar, size, [](int a, int b) {return (((b & 0x01) == 0x01)  && ((a & 0x01) == 0x00)); });
+		show();
+		sort(ar, size, [](int a, int b) {return (((b & 0x01) == 0x01)  && ((a & 0x01) == 0x00)); });
+		show();
+
 	return 0;
 	std::vector<int> a;
 	a.reserve(16);
