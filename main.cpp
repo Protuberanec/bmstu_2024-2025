@@ -1,155 +1,100 @@
 #include <iostream>
+#include <vector>
 
-void ShowNum(int a) {
-	if (a < 0) {
 
-		return;
+void foo(const std::vector<int>& a) {
+	for (int i = 0; i < a.capacity(); i++) {
+		std::cout << a[i] << std::endl;
 	}
 
-	ShowNum(--a);
-	std::cout << a + 1 << "\t";
 }
 
-int GetMax1(const int* ar, int size) {
-	int left = 0;
-	int right = size - 1;
+class T {
+	private :
+		std::vector<int> test11;
+	public :
+		static void test(const std::vector<int>& a);
+		void test1() const {
+		}
 
-	while(left != right) {
-		if (ar[left] > ar[right]) {
+};
+
+void T::test(const std::vector<int>& a) {
+	std::cout << __func__ << std::endl;
+
+	
+	for (int i = 0; i < a.capacity(); i++) {
+		std::cout << i << " : " << a[i] << std::endl;
+	}
+}
+
+void sort(int* ar, int size, bool (*comp)(int a, int b)) {
+	auto getMax = [](const int* ar, int size, bool (*comp)(int a, int b)) {
+		int left = 0;
+		int right = size - 1;
+		while(left != right) {
+			if (comp(ar[left], ar[right])) {
+				left++;
+				continue;
+			}
 			right--;
-			continue;
 		}
-		left++;
-	}
+		return left;
+	};
 
-	return ar[left];
-}
-
-int GetMax2(const int* ar, int size) {
-	if (size == 1) {
-		return ar[0];
-	}
-
-	if (ar[0] > ar[size - 1]) {
-		return GetMax2(ar, size - 1);
-	}
-	else {
-		return GetMax2(&ar[1], size - 1);
+	for (int i = size - 1; i >= 0; i--) {
+		int max_index = getMax(ar, i + 1, comp);
+		std::swap(ar[i], ar[max_index]);
 	}
 }
 
-int GetMax(const int* ar, int size) {
-	return (size != 1 ) ? ((ar[0] > ar[size - 1]) ? GetMax(ar, size-1) : GetMax(&ar[1], size-1)) : ar[0];
+void test_sort(void (*typeSort)(int* ar, int size, bool (*comp)(int,int)), const std::string& name_sort) {
+	std::cout << name_sort << std::endl;
+
 }
 
-
-int BinarySearch(const int* ar, int size, int element) {
-	if (size <= 1) {
-		if (ar[0] == element) {
-			return size/2;
-		}
-		return -1;
-	}
-
-	if (element > ar[(size)/2]) {
-		int res = BinarySearch(&ar[size / 2], size - size/2, element);
-		res = (res == -1) ? -1 : res + (size) / 2;
-		return res;
-	}
-	else if (element < ar[(size)/2]) {
-		return BinarySearch(&ar[0], size/2, element);
-	}
-
-	return (size)/2;
-}
-
-int test_BinarySearch() {
-	int count_test = 1;
-	std::cout << "------\n" << __func__ << std::endl;
-	{
-		int* ar = new int [10] {1,2,3,4,5,6,7,8,9,10};
-		for (int i = 1; i < 11; i++) {
-			if (BinarySearch(ar, 10, i) == i - 1) 
-				std::cout << "TEST " << count_test++ << " PASSED" << std::endl;
-			else 
-				std::cout << "TEST " << count_test++ << " BAD" << std::endl;
-		}
-		delete [] ar;
-	}
-	{
-		std::cout << "---" << std::endl;
-		int* ar = new int [10] {1,3,3,4,5,6,8,8,9,10};
-		if (BinarySearch(ar, 10, 14) == -1) 
-				std::cout << "TEST " << count_test++ << " PASSED" << std::endl;
-			else 
-				std::cout << "TEST " << count_test++ << " BAD" << std::endl;
-		if (BinarySearch(ar, 10, 0) == -1) 
-				std::cout << "TEST " << count_test++ << " PASSED" << std::endl;
-			else 
-				std::cout << "TEST " << count_test++ << " BAD" << std::endl;
-		if (BinarySearch(ar, 10, 7) == -1) 
-				std::cout << "TEST " << count_test++ << " PASSED" << std::endl;
-			else 
-				std::cout << "TEST " << count_test++ << " BAD" << std::endl;
-
-		if (BinarySearch(ar, 10, 2) == -1) 
-				std::cout << "TEST " << count_test++ << " PASSED" << std::endl;
-			else 
-				std::cout << "TEST " << count_test++ << " BAD" << std::endl;
-		delete [] ar;
-	}
-}
-
-void test_GetMax() {
-	{
-		int* ar = new int [10] {1,2,3,4,5,6,7,8,9,10};
-		if (GetMax(ar, 10) == 10) {
-			std::cout << "TEST PASSED" << std::endl;
-		}
-		else {
-			std::cout << "TEST BAD" << std::endl;
-		}
-		delete [] ar;
-	}
-
-	{
-		int* ar = new int [10] {22,2,3,4,5,6,7,8,9,10};
-		if (GetMax(ar, 10) == 22) {
-			std::cout << "TEST PASSED" << std::endl;
-		}
-		else {
-			std::cout << "TEST BAD" << std::endl;
-		}
-		delete [] ar;
-	}
-	{
-		int* ar = new int [10] {22,2,3,4,40,6,7,8,9,10};
-		if (GetMax(ar, 10) == 40) {
-			std::cout << "TEST PASSED" << std::endl;
-		}
-		else {
-			std::cout << "TEST BAD" << std::endl;
-		}
-		delete [] ar;
-	}
-	{
-		int* ar = new int [10] {5,5,5,5,5,5,5,5,5,5};
-		if (GetMax(ar, 10) == 5) {
-			std::cout << "TEST PASSED" << std::endl;
-		}
-		else {
-			std::cout << "TEST BAD" << std::endl;
-		}
-
-		delete [] ar;
-	}
-}
 
 int main(int argc, char** argv) {
+	test_sort(sort, "stupid sort");
+	return 0;
+	std::vector<int> a;
+	a.reserve(16);
+	std::cout << a.capacity() << std::endl;
+	std::cout << a.capacity()*sizeof(int) << std::endl;
 
-	test_GetMax();
-	test_BinarySearch();
 
+	for (int i = 0; i < a.capacity(); i++) {
+		a.push_back(i+1);
+	}
+	foo(a);
+
+	for (int i = 0; i < 17; i++) {
+		a.push_back(1111);
+	}
+
+	a.shrink_to_fit();
+	T::test(a);
+
+	a.insert(a.begin(),12);
+	a.shrink_to_fit();
+	std::cout << "-----------------" << std::endl;
+	for (const auto& element : a) {
+		std::cout << element << std::endl;
+	}
+	T::test(a);
+
+	std::cout << "-----------------" << std::endl;
+	for (std::vector<int>::iterator iter = a.begin(); iter != a.end(); iter++) {
+		std::cout << *iter << " ";
+	}
+	std::cout << std::endl;
+	a.clear();
+	a.resize(a.size() + 100);
+
+	std::vector<int*> test;
+//	test[0] = 10;
+	test.push_back((int*)0x7ffc8aa9a74);
+	std::cout << test.capacity() << *test.at(0) << std::endl;
 
 	return 0;
 }
