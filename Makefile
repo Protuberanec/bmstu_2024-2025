@@ -1,8 +1,8 @@
-all : main.o node.o dz1.o file_oper.o filo.o test.o work_array.o 
-	g++ main.o node.o dz1.o file_oper.o filo.o test.o work_array.o 
+all : main.o 
+	g++ main.o -g
 
 main.o : main.cpp
-	g++ -c main.cpp
+	g++ -c main.cpp -g
 
 node.o : node.c
 	g++ -c node.c
