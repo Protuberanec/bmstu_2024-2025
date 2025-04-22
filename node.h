@@ -2,42 +2,35 @@
 #define _node_h_
 
 #include <iostream>
+#include <vector>
 
 
 struct Data {
-	static int countEl;
-	int nameData = 0;
-	Data() {
-		countEl++; 
-		nameData = countEl;
-#ifdef SHOW_CONSTR_DATA
-		std::cout << countEl << " " <<  __func__ << std::endl; 
-#endif
-	}
-	Data(Data& _new_data) {
-		std::cout << __func__ << " copy constructor" << std::endl;
-		nameData = _new_data.nameData;
-	}
-	~Data() {
-#ifdef SHOW_CONSTR_DATA
-		std::cout << nameData << " " << __func__ << std::endl; 
-#endif
-		countEl--;
-	}
-
 };
 
 
 struct Node {
-	Node* next;
+	int nameNode;
+	static int countNode;
+	std::vector<Node*> leafs;
 	Data* data;
 	Node();
 	~Node();
 };
 
-void AddNode(struct Node* Head);
-struct Data GetNode(struct Node* Head, int num_node, bool del);
-void ShowElements(struct Node* Head);
+
+class Graph {
+	private :
+		Node* Parent;
+
+	public :
+		Graph();
+		~Graph();
+
+		void addChild(const std::string& childName, 
+
+};
+
 
 
 #endif
