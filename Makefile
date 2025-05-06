@@ -1,8 +1,11 @@
-all : main.o 
-	g++ main.o -g
+all : main.o ring_buffer.o 
+	g++ main.o ring_buffer.o -g
 
 main.o : main.cpp
 	g++ -c main.cpp -g
+
+ring_buffer.o : ring_buffer.cpp
+	g++ -c ring_buffer.cpp -g
 
 node.o : node.c
 	g++ -c node.c
