@@ -4,57 +4,95 @@
 #include <map>
 #include <string>
 
-#include "ring_buffer.h"
+#include <memory>
 
+#include "unique_ptr.h"
+
+
+int memory_give = 0;
+
+void* operator new[](size_t size) {
+	memory_give++;
+
+	return (void*)malloc(size);
+}
+
+void* operator new(size_t size) {
+	memory_give++;
+	return (void*)malloc(size);
+}
+
+void operator delete(void* ar) {
+	free(ar);
+	memory_give--;
+	std::cout << "free memory..." << std::endl;
+}
+
+void operator delete[](void* ar) {
+	free(ar);
+	memory_give--;
+}
+
+
+class Foo {
+	public :
+		Foo() { std::cout << __func__ << std::endl; }
+		~Foo() { std::cout << __func__ << std::endl; }
+
+		unsigned char sum(unsigned char a, unsigned char b) { 
+			std::cout << __LINE__ << " : " << __func__ << ":  " << (int)a << " + " <<  (int)b << " = " << (int)(a+b) << std::endl;
+			return a + b;
+	   	}
+};
 
 int main(int argc, char** argv) {
-	RingBuffer<double> test;
-	RingBuffer tempBuffer;
-	auto res { [&]() {
-		unsigned char data;
-		int count_data = 0;
-		while(tempBuffer.getFromFront(&data) != RB_ERROR::BUFFER_EMPTY) {
-			std::cout << (unsigned int)data;
-			if (!(count_data++ % 8)) {
-				std::cout << std::endl;
-				continue;
-			}
-			std::cout << "\t";
-		}
-		std::cout << std::endl << "buffer empty" << std::endl;;
-	} };
 
-	res();
+	{
+		std::unique_ptr<Foo> sp1 {std::make_unique<Foo>()};
+		std::unique_ptr<Foo> sp2 = std::move(sp1); 
 
-	for (int i = 0; i < 156; i++) {
-		if (tempBuffer.putToEnd(i) == RB_ERROR::BUFFER_FULL) 
-		{
-			std::cout << " buffer is full...." << std::endl;
-			break;
+		if (sp1.get()) {
+			sp1.get()->sum(10,-10);
 		}
+		sp2.get()->sum(56, 202);
+		int* ar = new int();
+		int* ar1 = new int();
+
 	}
 
-	res();
+	std::cout << "start to end ..... " << std::endl;
 
-	for (int i = 0; i < 300; i++) {
-		if (tempBuffer.putToEnd(i) == RB_ERROR::BUFFER_FULL) 
-		{
-			std::cout << " buffer is full.... " << i  << std::endl;
-			break;
-		}
+	std::cout << "-----------------------------" << std::endl;
+
+	{
+		UniquePtr<Foo> sq1 { new Foo() };
+		sq1.get()->sum(100, 100);
+		int* ar = new int();
 	}
 
-	res();
-	for (int i = 0; i < 300; i++) {
-		if (tempBuffer.putToEnd(i) == RB_ERROR::BUFFER_FULL) 
-		{
-			std::cout << " buffer is full.... " << i  << std::endl;
-			break;
-		}
-	}
-	tempBuffer.flush();
-	res();
-
+	int* ar = new int();
+	std::cout << "memory ..... " << memory_give << std::endl; 
 
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,6 @@
-all : main.o ring_buffer.o 
-	g++ main.o ring_buffer.o -g
+all : main.o
+	g++ main.o
+
 
 main.o : main.cpp
 	g++ -c main.cpp -g
